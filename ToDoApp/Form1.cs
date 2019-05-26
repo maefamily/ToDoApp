@@ -172,6 +172,8 @@ namespace ToDoApp
         {
             if (!isUserHappyWithTheSavedChanges)
                 return false;
+            targetTreeNodeUserInteraction = null;
+            nodeToBeCut = null;
             root = new ToDoItemRoot();
             syncViewFromModel();
             return true;

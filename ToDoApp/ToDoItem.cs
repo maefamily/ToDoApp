@@ -14,8 +14,8 @@ namespace ToDoApp
         public DateTime createdAt;
         public DateTime deadline;
         public DateTime checkedAt;
-        public DateTime lastModifiedAt;
         public bool isCollapsed;
+        public bool isModified;
 
         public List<ToDoItem> children = new List<ToDoItem>();
 
@@ -24,7 +24,7 @@ namespace ToDoApp
             this.id = (new Random()).Next().ToString();
             this.text = text;
             setIsModified();
-            createdAt = lastModifiedAt;
+            createdAt = DateTime.Now;
         }
 
         public void setIsChecked(bool isChecked)
@@ -48,13 +48,18 @@ namespace ToDoApp
 
         public void setIsModified()
         {
-            lastModifiedAt = DateTime.Now;
+            isModified = true;
         }
 
-        public bool isTreeModified(ToDoItemRoot root)
+        public void setIsNotModified()
         {
-            return children.Find(child => child.lastModifiedAt >= root.lastModifiedAt) != null ||
-                children.Any(child => child.isTreeModified(root));
+            isModified = false;
+            children.ForEach(child => child.setIsNotModified());
+        }
+
+        public bool isTreeModified
+        {
+            get { return isModified || children.Any(child => child.isTreeModified); }
         }
 
         public bool isEmpty

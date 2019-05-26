@@ -12,12 +12,21 @@ namespace ToDoApp
         public ToDoItemRoot()
             : base("Root")
         {
+            isModified = false;
         }
 
         public void save(string filePath)
         {
-            setIsModified();
-            File.WriteAllText(filePath, JsonConvert.SerializeObject(this, jsonSettings));
+            setIsNotModified();
+            try
+            {
+                File.WriteAllText(filePath, JsonConvert.SerializeObject(this, jsonSettings));
+            }
+            catch (Exception ex)
+            {
+                setIsModified();
+                throw ex;
+            }
         }
 
         public static ToDoItemRoot open(string filePath)
@@ -42,10 +51,7 @@ namespace ToDoApp
 
         public bool needsToBeSaved
         {
-            get
-            {
-                return isTreeModified(this);
-            }
+            get { return isTreeModified; }
         }
 
         public static bool canBeCutPastedHere(ToDoItem itemToBeCut, ToDoItem pasteParent)
