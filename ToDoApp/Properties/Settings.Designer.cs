@@ -70,5 +70,17 @@ namespace ToDoApp.Properties {
                 this["contentFilePath"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool autoSaveOnFocusOut {
+            get {
+                return ((bool)(this["autoSaveOnFocusOut"]));
+            }
+            set {
+                this["autoSaveOnFocusOut"] = value;
+            }
+        }
     }
 }

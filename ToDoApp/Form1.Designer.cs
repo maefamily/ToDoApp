@@ -51,6 +51,7 @@
             this.pasteHereToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.moveUpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.moveDownToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.autoSaveOnFocusOutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -70,11 +71,12 @@
             this.openToolStripMenuItem,
             this.toolStripMenuItem2,
             this.alwaysOnTopToolStripMenuItem,
+            this.autoSaveOnFocusOutToolStripMenuItem,
             this.toolStripMenuItem3,
             this.aboutToolStripMenuItem,
             this.exitToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(217, 330);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(217, 352);
             this.contextMenuStrip1.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStrip1_Opening);
             // 
             // createItemToolStripMenuItem
@@ -229,6 +231,13 @@
             this.moveDownToolStripMenuItem.Text = "Move Down";
             this.moveDownToolStripMenuItem.Click += new System.EventHandler(this.moveDownToolStripMenuItem_Click);
             // 
+            // autoSaveOnFocusOutToolStripMenuItem
+            // 
+            this.autoSaveOnFocusOutToolStripMenuItem.Name = "autoSaveOnFocusOutToolStripMenuItem";
+            this.autoSaveOnFocusOutToolStripMenuItem.Size = new System.Drawing.Size(216, 22);
+            this.autoSaveOnFocusOutToolStripMenuItem.Text = "Auto save on focus out";
+            this.autoSaveOnFocusOutToolStripMenuItem.Click += new System.EventHandler(this.autoSaveOnFocusOutToolStripMenuItem_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -240,6 +249,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
             this.Text = "ToDoApp";
+            this.Deactivate += new System.EventHandler(this.Form1_Deactivate);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.ResizeEnd += new System.EventHandler(this.Form1_ResizeEnd);
@@ -273,6 +283,7 @@
         private System.Windows.Forms.ToolStripMenuItem pasteHereToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem moveUpToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem moveDownToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem autoSaveOnFocusOutToolStripMenuItem;
     }
 }
 

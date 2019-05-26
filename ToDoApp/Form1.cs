@@ -328,6 +328,8 @@ namespace ToDoApp
             saveAsToolStripMenuItem.Enabled = !root.isEmpty;
 
             alwaysOnTopToolStripMenuItem.Checked = settings.isAlwaysOnTop;
+
+            autoSaveOnFocusOutToolStripMenuItem.Checked = settings.autoSaveOnFocusOut;
         }
 
         private void alwaysOnTopToolStripMenuItem_Click(object sender, EventArgs e)
@@ -464,6 +466,19 @@ namespace ToDoApp
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
             MessageBox.Show("ToDoApp\nby Mihai Maerean\nMay 2019", "About", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void autoSaveOnFocusOutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            settings.autoSaveOnFocusOut = !settings.autoSaveOnFocusOut;
+            settings.Save();
+        }
+
+        private void Form1_Deactivate(object sender, EventArgs e)
+        {
+            if (!settings.autoSaveOnFocusOut || !root.needsToBeSaved || !new FileInfo(settings.contentFilePath).Exists)
+                return;
+            save();
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
