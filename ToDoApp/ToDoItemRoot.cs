@@ -47,5 +47,21 @@ namespace ToDoApp
                 return isTreeModified(this);
             }
         }
+
+        public static bool canBeCutPastedHere(ToDoItem itemToBeCut, ToDoItem pasteParent)
+        {
+            // check for cyclic dependencies.
+            return itemToBeCut != null && pasteParent != null && !itemToBeCut.containsInTree(pasteParent);
+        }
+
+        public static bool cutPaste(ToDoItem itemToBeCut, ToDoItem parentOfItemToBeCut, ToDoItem pasteParent)
+        {
+            if (!canBeCutPastedHere(itemToBeCut, pasteParent))
+                return false;
+            
+            parentOfItemToBeCut.deleteChild(itemToBeCut);
+            pasteParent.addChild(itemToBeCut);
+            return true;
+        }
     }
 }

@@ -26,6 +26,10 @@ namespace ToDoApp
         {
             get { return hasTarget ? getItemFromNode(targetTreeNodeUserInteraction) : root; }
         }
+        public ToDoItem targetToDoItem
+        {
+            get { return hasTarget ? getItemFromNode(targetTreeNodeUserInteraction) : null; }
+        }
 
         Properties.Settings settings
         {
@@ -33,6 +37,12 @@ namespace ToDoApp
         }
 
         public bool isTreeLoadInProgress = false;
+
+        public TreeNode nodeToBeCut;
+        public ToDoItem itemToBeCut
+        {
+            get { return nodeToBeCut != null ? getItemFromNode(nodeToBeCut) : null; }
+        }
         #endregion Properties
 
         public Form1()
@@ -151,6 +161,11 @@ namespace ToDoApp
         public ToDoItem getItemFromNode(TreeNode treeNode)
         {
             return treeNode.Tag as ToDoItem;
+        }
+
+        public ToDoItem getParentItemFromNode(TreeNode treeNode)
+        {
+            return treeNode.Parent != null ? treeNode.Parent.Tag as ToDoItem : root;
         }
 
         public bool newFile()
@@ -285,8 +300,17 @@ namespace ToDoApp
         {
             createItemToolStripMenuItem.Text = hasTarget ? String.Format("Create Item inside '{0}'", targetTreeNodeUserInteraction.Text) : "Create Top Level Item";
             
-            deleteItemToolStripMenuItem.Visible = hasTarget;
+            deleteItemToolStripMenuItem.Enabled = hasTarget;
             deleteItemToolStripMenuItem.Text = hasTarget? String.Format("Delete '{0}'...", targetTreeNodeUserInteraction.Text) : "Delete Item";
+
+            cutToolStripMenuItem.Enabled = hasTarget;
+            cutToolStripMenuItem.Text = hasTarget ? String.Format("Cut '{0}'", targetTreeNodeUserInteraction.Text) : "Cut";
+
+            pasteHereToolStripMenuItem.Enabled = nodeToBeCut != null && ToDoItemRoot.canBeCutPastedHere(itemToBeCut, targetOrRootToDoItem);
+            if (itemToBeCut != null)
+                pasteHereToolStripMenuItem.Text = hasTarget ? String.Format("Paste '{0}' in '{1}'", itemToBeCut.text, targetOrRootToDoItem.text) : "Paste as top level item";
+            else
+                pasteHereToolStripMenuItem.Text = hasTarget ? String.Format("Paste in '{0}'", targetTreeNodeUserInteraction.Text) : "Paste as top level item";
 
             newToolStripMenuItem.Enabled = !root.isEmpty;
 
@@ -316,6 +340,18 @@ namespace ToDoApp
                 parentItem.deleteChild(targetOrRootToDoItem);
                 syncViewFromModel();
             }
+        }
+
+        private void cutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            nodeToBeCut = targetTreeNodeUserInteraction;
+        }
+
+        private void pasteHereToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ToDoItemRoot.cutPaste(itemToBeCut, getParentItemFromNode(nodeToBeCut), targetOrRootToDoItem);
+            nodeToBeCut = null;
+            syncViewFromModel();
         }
 
         private void treeViewItems_AfterLabelEdit(object sender, NodeLabelEditEventArgs e)
@@ -358,6 +394,11 @@ namespace ToDoApp
             if (isTreeLoadInProgress)
                 return;
             getItemFromNode(e.Node).setIsChecked(e.Node.Checked);
+        }
+
+        private void treeViewItems_AfterSelect(object sender, TreeViewEventArgs e)
+        {
+            targetTreeNodeUserInteraction = e.Node;
         }
 
         private void newToolStripMenuItem_Click(object sender, EventArgs e)

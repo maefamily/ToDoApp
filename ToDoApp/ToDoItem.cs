@@ -53,7 +53,7 @@ namespace ToDoApp
 
         public bool isTreeModified(ToDoItemRoot root)
         {
-            return children.Find(child => child.lastModifiedAt > root.lastModifiedAt) != null ||
+            return children.Find(child => child.lastModifiedAt >= root.lastModifiedAt) != null ||
                 children.Any(child => child.isTreeModified(root));
         }
 
@@ -69,6 +69,19 @@ namespace ToDoApp
         {
             children.Remove(child);
             setIsModified();
+        }
+
+        public void addChild(ToDoItem child)
+        {
+            children.Add(child);
+            setIsModified();
+            child.setIsModified();
+        }
+
+        public bool containsInTree(ToDoItem childToLookFor)
+        {
+            return this == childToLookFor ||
+                children.Find(child => child == childToLookFor || child.containsInTree(childToLookFor)) == childToLookFor;
         }
     }
 }
