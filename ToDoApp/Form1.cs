@@ -305,6 +305,8 @@ namespace ToDoApp
         private void contextMenuStrip1_Opening(object sender, CancelEventArgs e)
         {
             createItemToolStripMenuItem.Text = hasTarget ? String.Format("Create Item inside '{0}'", targetTreeNodeUserInteraction.Text) : "Create Top Level Item";
+
+            renameToolStripMenuItem.Enabled = hasTarget;
             
             deleteItemToolStripMenuItem.Enabled = hasTarget;
             deleteItemToolStripMenuItem.Text = hasTarget ? String.Format("Delete '{0}'...", targetTreeNodeUserInteraction.Text) : "Delete Item";
@@ -340,6 +342,13 @@ namespace ToDoApp
         private void createItemToolStripMenuItem_Click(object sender, EventArgs e)
         {
             createNewToDoItem(targetOrRootToDoItem);
+        }
+
+        private void renameToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (treeViewItems.SelectedNode == null)
+                return;
+            treeViewItems.SelectedNode.BeginEdit();
         }
 
         private void deleteItemToolStripMenuItem_Click(object sender, EventArgs e)
