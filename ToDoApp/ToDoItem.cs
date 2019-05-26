@@ -83,6 +83,31 @@ namespace ToDoApp
             child.setIsModified();
         }
 
+        public int getChildIndex(ToDoItem child)
+        {
+            return children.IndexOf(child);
+        }
+
+        public void moveUpChild(ToDoItem child)
+        {
+            int index = getChildIndex(child);
+            if (index <= 0)
+                return;
+            children.RemoveAt(index);
+            children.Insert(index - 1, child);
+            setIsModified();
+        }
+
+        public void moveDownChild(ToDoItem child)
+        {
+            int index = getChildIndex(child);
+            if (index >= children.Count - 1)
+                return;
+            children.RemoveAt(index);
+            children.Insert(index + 1, child);
+            setIsModified();
+        }
+
         public bool containsInTree(ToDoItem childToLookFor)
         {
             return this == childToLookFor ||

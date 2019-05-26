@@ -30,6 +30,10 @@ namespace ToDoApp
         {
             get { return hasTarget ? getItemFromNode(targetTreeNodeUserInteraction) : null; }
         }
+        public ToDoItem parentOfTargetToDoItem
+        {
+            get { return hasTarget ? getItemFromNode(targetTreeNodeUserInteraction.Parent) : root; }
+        }
 
         Properties.Settings settings
         {
@@ -160,7 +164,7 @@ namespace ToDoApp
 
         public ToDoItem getItemFromNode(TreeNode treeNode)
         {
-            return treeNode.Tag as ToDoItem;
+            return treeNode != null ? treeNode.Tag as ToDoItem : root;
         }
 
         public ToDoItem getParentItemFromNode(TreeNode treeNode)
@@ -303,7 +307,10 @@ namespace ToDoApp
             createItemToolStripMenuItem.Text = hasTarget ? String.Format("Create Item inside '{0}'", targetTreeNodeUserInteraction.Text) : "Create Top Level Item";
             
             deleteItemToolStripMenuItem.Enabled = hasTarget;
-            deleteItemToolStripMenuItem.Text = hasTarget? String.Format("Delete '{0}'...", targetTreeNodeUserInteraction.Text) : "Delete Item";
+            deleteItemToolStripMenuItem.Text = hasTarget ? String.Format("Delete '{0}'...", targetTreeNodeUserInteraction.Text) : "Delete Item";
+
+            moveUpToolStripMenuItem.Enabled = hasTarget && parentOfTargetToDoItem.getChildIndex(getItemFromNode(targetTreeNodeUserInteraction)) > 0;
+            moveDownToolStripMenuItem.Enabled = hasTarget && parentOfTargetToDoItem.getChildIndex(getItemFromNode(targetTreeNodeUserInteraction)) < parentOfTargetToDoItem.children.Count - 1;
 
             cutToolStripMenuItem.Enabled = hasTarget;
             cutToolStripMenuItem.Text = hasTarget ? String.Format("Cut '{0}'", targetTreeNodeUserInteraction.Text) : "Cut";
@@ -338,10 +345,29 @@ namespace ToDoApp
             if (MessageBox.Show(String.Format("Are you sure you want to delete '{0}'?", targetTreeNodeUserInteraction.Text), this.Text, MessageBoxButtons.YesNo, MessageBoxIcon.Question)
                 == DialogResult.Yes)
             {
-                ToDoItem parentItem = targetTreeNodeUserInteraction.Parent != null ? getItemFromNode(targetTreeNodeUserInteraction.Parent) : root;
-                parentItem.deleteChild(targetOrRootToDoItem);
+                parentOfTargetToDoItem.deleteChild(targetOrRootToDoItem);
                 syncViewFromModel();
             }
+        }
+
+        private void moveUpToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (!hasTarget)
+                return;
+            ToDoItem target = targetToDoItem;
+            parentOfTargetToDoItem.moveUpChild(target);
+            syncViewFromModel();
+            treeViewItems.SelectedNode = getNodeForToDoItem(target);
+        }
+
+        private void moveDownToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (!hasTarget)
+                return;
+            ToDoItem target = targetToDoItem;
+            parentOfTargetToDoItem.moveDownChild(target);
+            syncViewFromModel();
+            treeViewItems.SelectedNode = getNodeForToDoItem(target);
         }
 
         private void cutToolStripMenuItem_Click(object sender, EventArgs e)
