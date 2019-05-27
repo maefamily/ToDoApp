@@ -236,9 +236,9 @@ namespace ToDoApp
             DialogResult choice = saveFileDialog1.ShowDialog(this);
             if (choice == DialogResult.OK)
             {
-                root.save(settings.contentFilePath);
                 settings.contentFilePath = saveFileDialog1.FileName;
                 settings.Save();
+                root.save(settings.contentFilePath);
                 return DialogResult.OK;
             }
             return choice;
