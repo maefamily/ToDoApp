@@ -106,6 +106,8 @@ namespace ToDoApp
             treeViewItems.EndUpdate();
 
             labelInfo.Visible = treeViewItems.Nodes.Count == 0;
+
+            setWindowTitle();
         }
         
         public void synchronizeNodesWithTheToDoItems(List<ToDoItem> items, TreeNodeCollection nodes)
@@ -227,6 +229,7 @@ namespace ToDoApp
             else
             {
                 root.save(settings.contentFilePath);
+                setWindowTitle();
                 return DialogResult.OK;
             }
         }
@@ -239,9 +242,18 @@ namespace ToDoApp
                 settings.contentFilePath = saveFileDialog1.FileName;
                 settings.Save();
                 root.save(settings.contentFilePath);
+                setWindowTitle();
                 return DialogResult.OK;
             }
             return choice;
+        }
+
+        public void setWindowTitle()
+        {
+            string fileName = settings.fileName;
+            this.Text = "ToDoApp" + 
+                (root.needsToBeSaved ? " *" : string.Empty) + 
+                (fileName != string.Empty ? " " + fileName : string.Empty);
         }
 
 
@@ -505,6 +517,11 @@ namespace ToDoApp
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Application.Exit();
+        }
+
+        private void timerWindowTitle_Tick(object sender, EventArgs e)
+        {
+            setWindowTitle();
         }
         #endregion Events
     }

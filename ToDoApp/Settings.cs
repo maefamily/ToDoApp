@@ -45,5 +45,21 @@ namespace ToDoApp.Properties {
                 }
             }
         }
+
+        public string fileName
+        {
+            get
+            {
+                try
+                {
+                    FileInfo file = new FileInfo(contentFilePath);
+                    return file.Exists ? file.Name : string.Empty;
+                }
+                catch
+                {
+                    return string.Empty;
+                }
+            }
+        }
     }
 }
