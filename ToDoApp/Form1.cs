@@ -274,7 +274,7 @@ namespace ToDoApp
 
             try
             {
-                if (new FileInfo(settings.contentFilePath).Exists)
+                if (settings.doesFileExist)
                 {
                     openFileDialog1.FileName = settings.contentFilePath;
                     saveFileDialog1.FileName = settings.contentFilePath;
@@ -485,7 +485,7 @@ namespace ToDoApp
 
         private void Form1_Deactivate(object sender, EventArgs e)
         {
-            if (!settings.autoSaveOnFocusOut || !root.needsToBeSaved || !new FileInfo(settings.contentFilePath).Exists)
+            if (!settings.autoSaveOnFocusOut || !root.needsToBeSaved || !settings.doesFileExist)
                 return;
             save();
         }
