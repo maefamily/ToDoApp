@@ -52,6 +52,12 @@ namespace ToDoApp
         public Form1()
         {
             InitializeComponent();
+            settings.SettingsLoaded += new System.Configuration.SettingsLoadedEventHandler(settings_SettingsLoaded);
+        }
+
+        void settings_SettingsLoaded(object sender, System.Configuration.SettingsLoadedEventArgs e)
+        {
+            applySettings();
         }
 
         public void applySettings()
