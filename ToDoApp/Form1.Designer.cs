@@ -32,6 +32,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.createItemToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.createItemInsideToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.renameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.moveUpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.moveDownToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -54,7 +55,6 @@
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.timerWindowTitle = new System.Windows.Forms.Timer(this.components);
-            this.createItemInsideToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -81,7 +81,7 @@
             this.aboutToolStripMenuItem,
             this.exitToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(242, 396);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(242, 374);
             this.contextMenuStrip1.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStrip1_Opening);
             // 
             // createItemToolStripMenuItem
@@ -91,6 +91,14 @@
             this.createItemToolStripMenuItem.Size = new System.Drawing.Size(241, 22);
             this.createItemToolStripMenuItem.Text = "Create Item";
             this.createItemToolStripMenuItem.Click += new System.EventHandler(this.createItemToolStripMenuItem_Click);
+            // 
+            // createItemInsideToolStripMenuItem
+            // 
+            this.createItemInsideToolStripMenuItem.Name = "createItemInsideToolStripMenuItem";
+            this.createItemInsideToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Insert)));
+            this.createItemInsideToolStripMenuItem.Size = new System.Drawing.Size(241, 22);
+            this.createItemInsideToolStripMenuItem.Text = "Create item inside";
+            this.createItemInsideToolStripMenuItem.Click += new System.EventHandler(this.createItemInsideToolStripMenuItem_Click);
             // 
             // renameToolStripMenuItem
             // 
@@ -247,23 +255,22 @@
             this.labelInfo.Text = "ToDoApp. Right click for options";
             this.labelInfo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // saveFileDialog1
+            // 
+            this.saveFileDialog1.DefaultExt = "todo";
+            this.saveFileDialog1.Filter = "ToDo files (*.todo)|*.todo";
+            // 
             // openFileDialog1
             // 
+            this.openFileDialog1.DefaultExt = "todo";
             this.openFileDialog1.FileName = "openFileDialog1";
+            this.openFileDialog1.Filter = "ToDo files (*.todo)|*.todo";
             // 
             // timerWindowTitle
             // 
             this.timerWindowTitle.Enabled = true;
             this.timerWindowTitle.Interval = 1000;
             this.timerWindowTitle.Tick += new System.EventHandler(this.timerWindowTitle_Tick);
-            // 
-            // createItemInsideToolStripMenuItem
-            // 
-            this.createItemInsideToolStripMenuItem.Name = "createItemInsideToolStripMenuItem";
-            this.createItemInsideToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Insert)));
-            this.createItemInsideToolStripMenuItem.Size = new System.Drawing.Size(241, 22);
-            this.createItemInsideToolStripMenuItem.Text = "Create item inside";
-            this.createItemInsideToolStripMenuItem.Click += new System.EventHandler(this.createItemInsideToolStripMenuItem_Click);
             // 
             // Form1
             // 
