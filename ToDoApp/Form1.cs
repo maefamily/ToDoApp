@@ -396,8 +396,15 @@ namespace ToDoApp
             if (MessageBox.Show(String.Format("Are you sure you want to delete '{0}'?", targetTreeNodeUserInteraction.Text), this.Text, MessageBoxButtons.YesNo, MessageBoxIcon.Question)
                 == DialogResult.Yes)
             {
-                parentOfTargetToDoItem.deleteChild(targetOrRootToDoItem);
-                syncViewFromModel();
+                ToDoItem itemToDelete = targetToDoItem;
+                ToDoItem parent = parentOfTargetToDoItem;
+                bool hasExtraPermission = itemToDelete.isEmpty || 
+                    MessageBox.Show(String.Format("This item has child items that would also be deleted.\nAre you really really sure you want to delete '{0}'?", targetTreeNodeUserInteraction.Text), this.Text, MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes;
+                if (hasExtraPermission)
+                {
+                    parent.deleteChild(itemToDelete);
+                    syncViewFromModel();
+                }
             }
         }
 
