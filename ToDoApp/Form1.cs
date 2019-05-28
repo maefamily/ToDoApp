@@ -160,10 +160,21 @@ namespace ToDoApp
             return nodes.Length > 0 ? nodes[0] : null;
         }
 
-        public void createNewToDoItem(ToDoItem parent)
+        public void createNewToDoItemInsideParent(ToDoItem parent)
         {
             ToDoItem newItem = new ToDoItem("text");
-            parent.children.Add(newItem);
+            parent.addChild(newItem);
+            syncViewFromModel();
+            TreeNode node = getNodeForToDoItem(newItem);
+            treeViewItems.SelectedNode = node;
+            node.BeginEdit();
+        }
+
+        public void createNewToDoItemNextTo(TreeNode nextTo)
+        {
+            ToDoItem parent = getParentItemFromNode(nextTo);
+            ToDoItem newItem = new ToDoItem("text");
+            parent.addChildNextTo(newItem, getItemFromNode(nextTo));
             syncViewFromModel();
             TreeNode node = getNodeForToDoItem(newItem);
             treeViewItems.SelectedNode = node;
@@ -322,7 +333,10 @@ namespace ToDoApp
 
         private void contextMenuStrip1_Opening(object sender, CancelEventArgs e)
         {
-            createItemToolStripMenuItem.Text = hasTarget ? String.Format("Create Item inside '{0}'", targetTreeNodeUserInteraction.Text) : "Create Top Level Item";
+            createItemToolStripMenuItem.Enabled = hasTarget;
+            createItemToolStripMenuItem.Text = hasTarget ? String.Format("Create item next to '{0}'", targetTreeNodeUserInteraction.Text) : "Create item next to...";
+
+            createItemInsideToolStripMenuItem.Text = hasTarget ? String.Format("Create item inside '{0}'", targetTreeNodeUserInteraction.Text) : "Create Top Level Item";
 
             renameToolStripMenuItem.Enabled = hasTarget;
             
@@ -359,7 +373,15 @@ namespace ToDoApp
 
         private void createItemToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            createNewToDoItem(targetOrRootToDoItem);
+            if (root.isEmpty)
+                createNewToDoItemInsideParent(targetOrRootToDoItem);
+            else
+                createNewToDoItemNextTo(targetTreeNodeUserInteraction);
+        }
+
+        private void createItemInsideToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            createNewToDoItemInsideParent(targetOrRootToDoItem);
         }
 
         private void renameToolStripMenuItem_Click(object sender, EventArgs e)
@@ -460,6 +482,8 @@ namespace ToDoApp
 
         private void newToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            settings.contentFilePath = string.Empty;
+            settings.Save();
             newFile();
         }
 

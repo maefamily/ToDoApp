@@ -83,6 +83,13 @@ namespace ToDoApp
             child.setIsModified();
         }
 
+        public void addChildNextTo(ToDoItem child, ToDoItem nextTo)
+        {
+            children.Insert(1 + getChildIndex(nextTo), child);
+            setIsModified();
+            child.setIsModified();
+        }
+
         public int getChildIndex(ToDoItem child)
         {
             return children.IndexOf(child);

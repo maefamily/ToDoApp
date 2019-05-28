@@ -54,6 +54,7 @@
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.timerWindowTitle = new System.Windows.Forms.Timer(this.components);
+            this.createItemInsideToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -61,6 +62,7 @@
             // 
             this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.createItemToolStripMenuItem,
+            this.createItemInsideToolStripMenuItem,
             this.renameToolStripMenuItem,
             this.moveUpToolStripMenuItem,
             this.moveDownToolStripMenuItem,
@@ -79,7 +81,7 @@
             this.aboutToolStripMenuItem,
             this.exitToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(242, 352);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(242, 396);
             this.contextMenuStrip1.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStrip1_Opening);
             // 
             // createItemToolStripMenuItem
@@ -255,6 +257,14 @@
             this.timerWindowTitle.Interval = 1000;
             this.timerWindowTitle.Tick += new System.EventHandler(this.timerWindowTitle_Tick);
             // 
+            // createItemInsideToolStripMenuItem
+            // 
+            this.createItemInsideToolStripMenuItem.Name = "createItemInsideToolStripMenuItem";
+            this.createItemInsideToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Insert)));
+            this.createItemInsideToolStripMenuItem.Size = new System.Drawing.Size(241, 22);
+            this.createItemInsideToolStripMenuItem.Text = "Create item inside";
+            this.createItemInsideToolStripMenuItem.Click += new System.EventHandler(this.createItemInsideToolStripMenuItem_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -303,6 +313,7 @@
         private System.Windows.Forms.ToolStripMenuItem autoSaveOnFocusOutToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem renameToolStripMenuItem;
         private System.Windows.Forms.Timer timerWindowTitle;
+        private System.Windows.Forms.ToolStripMenuItem createItemInsideToolStripMenuItem;
     }
 }
 
