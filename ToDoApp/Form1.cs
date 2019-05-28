@@ -105,7 +105,7 @@ namespace ToDoApp
             isTreeLoadInProgress = false;
             treeViewItems.EndUpdate();
 
-            labelInfo.Visible = treeViewItems.Nodes.Count == 0;
+            labelInfo.Visible = root.children.Count == 0;
 
             setWindowTitle();
         }
