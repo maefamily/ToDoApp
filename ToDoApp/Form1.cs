@@ -76,6 +76,26 @@ namespace ToDoApp
             applySettings();
         }
 
+        public bool isBallonAlreadyDisplayed = false;
+        public void hideTheWindowFromTheUser()
+        {
+            if (!isBallonAlreadyDisplayed)
+            {
+                systemTrayNotifyIcon.BalloonTipText = "You can bring back the window from this icon.";
+                systemTrayNotifyIcon.ShowBalloonTip(5000);
+                isBallonAlreadyDisplayed = true;
+            }
+            this.Hide();
+        }
+
+        public void displayTheWindowToTheUser()
+        {
+            this.Show();
+            this.Activate();
+            this.BringToFront();
+            this.Focus();
+        }
+
         // when treeViewItems_NodeMouseClick is called, treeViewItems_MouseUp will immediately be called after that.
         // timeShowAppContextMenu is used to detect this situation.
         private DateTime timeShowAppContextMenu;
@@ -357,6 +377,7 @@ namespace ToDoApp
 
             newToolStripMenuItem.Enabled = !root.isEmpty;
 
+            saveToolStripMenuItem.Text = "Save " + settings.fileName;
             saveToolStripMenuItem.Enabled = root.needsToBeSaved;
 
             saveAsToolStripMenuItem.Enabled = !root.isEmpty;
@@ -541,6 +562,13 @@ namespace ToDoApp
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
+            if (e.CloseReason == CloseReason.UserClosing)
+            {
+                e.Cancel = true;
+                hideTheWindowFromTheUser();
+                return;
+            }
+
             if (!isUserHappyWithTheSavedChanges)
                 e.Cancel = true;
         }
@@ -554,6 +582,14 @@ namespace ToDoApp
         {
             setWindowTitle();
         }
+
+        private void systemTrayNotifyIcon_Click(object sender, EventArgs e)
+        {
+            Show();
+            Activate();
+            Focus();
+        }
         #endregion Events
+
     }
 }

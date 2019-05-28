@@ -55,6 +55,7 @@
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.timerWindowTitle = new System.Windows.Forms.Timer(this.components);
+            this.systemTrayNotifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
             this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -272,6 +273,13 @@
             this.timerWindowTitle.Interval = 1000;
             this.timerWindowTitle.Tick += new System.EventHandler(this.timerWindowTitle_Tick);
             // 
+            // systemTrayNotifyIcon
+            // 
+            this.systemTrayNotifyIcon.ContextMenuStrip = this.contextMenuStrip1;
+            this.systemTrayNotifyIcon.Icon = ((System.Drawing.Icon)(resources.GetObject("systemTrayNotifyIcon.Icon")));
+            this.systemTrayNotifyIcon.Visible = true;
+            this.systemTrayNotifyIcon.Click += new System.EventHandler(this.systemTrayNotifyIcon_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -281,7 +289,10 @@
             this.Controls.Add(this.labelInfo);
             this.Controls.Add(this.treeViewItems);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "Form1";
+            this.ShowInTaskbar = false;
             this.Text = "ToDoApp";
             this.Deactivate += new System.EventHandler(this.Form1_Deactivate);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
@@ -321,6 +332,7 @@
         private System.Windows.Forms.ToolStripMenuItem renameToolStripMenuItem;
         private System.Windows.Forms.Timer timerWindowTitle;
         private System.Windows.Forms.ToolStripMenuItem createItemInsideToolStripMenuItem;
+        private System.Windows.Forms.NotifyIcon systemTrayNotifyIcon;
     }
 }
 
