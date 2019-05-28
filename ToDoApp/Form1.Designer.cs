@@ -277,6 +277,7 @@
             // 
             this.systemTrayNotifyIcon.ContextMenuStrip = this.contextMenuStrip1;
             this.systemTrayNotifyIcon.Icon = ((System.Drawing.Icon)(resources.GetObject("systemTrayNotifyIcon.Icon")));
+            this.systemTrayNotifyIcon.Text = "ToDoApp";
             this.systemTrayNotifyIcon.Visible = true;
             this.systemTrayNotifyIcon.Click += new System.EventHandler(this.systemTrayNotifyIcon_Click);
             // 
