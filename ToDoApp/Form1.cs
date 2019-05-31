@@ -208,7 +208,7 @@ namespace ToDoApp
 
         public ToDoItem getParentItemFromNode(TreeNode treeNode)
         {
-            return treeNode.Parent != null ? treeNode.Parent.Tag as ToDoItem : root;
+            return treeNode != null && treeNode.Parent != null ? treeNode.Parent.Tag as ToDoItem : root;
         }
 
         public bool newFile()
