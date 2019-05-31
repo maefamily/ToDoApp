@@ -339,6 +339,8 @@ namespace ToDoApp
             {
                 newFile();
             }
+
+            treeViewItems.Focus();
         }
 
         private void Form1_ResizeEnd(object sender, EventArgs e)
