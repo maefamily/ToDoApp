@@ -47,6 +47,10 @@ namespace ToDoApp
         {
             get { return nodeToBeCut != null ? getItemFromNode(nodeToBeCut) : null; }
         }
+
+        public const string InvertedThemeName = "inverted";
+        public Color backgroundColor;
+        public Color textColor;
         #endregion Properties
 
         public Form1()
@@ -67,6 +71,21 @@ namespace ToDoApp
                 this.Location = settings.location;
             if (settings.size.Width != -1)
                 this.Size = settings.size;
+            
+            switch (settings.colorTheme)
+            {
+                case InvertedThemeName:
+                    {
+                        treeViewItems.BackColor = textColor;
+                        treeViewItems.ForeColor = backgroundColor;
+                    }break;
+                default:
+                    {
+                        treeViewItems.BackColor = backgroundColor;
+                        treeViewItems.ForeColor = textColor;
+                    }break;
+            }
+            treeViewItems.LineColor=treeViewItems.ForeColor;
         }
 
         public void switchAlwaysOnTop()
@@ -319,6 +338,9 @@ namespace ToDoApp
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            backgroundColor=treeViewItems.BackColor;
+            textColor=treeViewItems.ForeColor;
+
             applySettings();
 
             try
@@ -387,6 +409,8 @@ namespace ToDoApp
             alwaysOnTopToolStripMenuItem.Checked = settings.isAlwaysOnTop;
 
             autoSaveOnFocusOutToolStripMenuItem.Checked = settings.autoSaveOnFocusOut;
+
+            invertedColorThemeToolStripMenuItem.Checked = settings.colorTheme == InvertedThemeName;
         }
 
         private void alwaysOnTopToolStripMenuItem_Click(object sender, EventArgs e)
@@ -573,6 +597,13 @@ namespace ToDoApp
 
             if (!isUserHappyWithTheSavedChanges)
                 e.Cancel = true;
+        }
+
+        private void invertedColorThemeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            settings.colorTheme = settings.colorTheme == InvertedThemeName ? "" : InvertedThemeName;
+            settings.Save();
+            applySettings();
         }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)

@@ -82,5 +82,17 @@ namespace ToDoApp.Properties {
                 this["autoSaveOnFocusOut"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string colorTheme {
+            get {
+                return ((string)(this["colorTheme"]));
+            }
+            set {
+                this["colorTheme"] = value;
+            }
+        }
     }
 }

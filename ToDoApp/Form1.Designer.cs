@@ -56,6 +56,7 @@
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.timerWindowTitle = new System.Windows.Forms.Timer(this.components);
             this.systemTrayNotifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
+            this.invertedColorThemeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -78,11 +79,12 @@
             this.toolStripMenuItem2,
             this.alwaysOnTopToolStripMenuItem,
             this.autoSaveOnFocusOutToolStripMenuItem,
+            this.invertedColorThemeToolStripMenuItem,
             this.toolStripMenuItem3,
             this.aboutToolStripMenuItem,
             this.exitToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(242, 374);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(242, 418);
             this.contextMenuStrip1.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStrip1_Opening);
             // 
             // createItemToolStripMenuItem
@@ -281,6 +283,13 @@
             this.systemTrayNotifyIcon.Visible = true;
             this.systemTrayNotifyIcon.Click += new System.EventHandler(this.systemTrayNotifyIcon_Click);
             // 
+            // invertedColorThemeToolStripMenuItem
+            // 
+            this.invertedColorThemeToolStripMenuItem.Name = "invertedColorThemeToolStripMenuItem";
+            this.invertedColorThemeToolStripMenuItem.Size = new System.Drawing.Size(241, 22);
+            this.invertedColorThemeToolStripMenuItem.Text = "Inverted color theme";
+            this.invertedColorThemeToolStripMenuItem.Click += new System.EventHandler(this.invertedColorThemeToolStripMenuItem_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -334,6 +343,7 @@
         private System.Windows.Forms.Timer timerWindowTitle;
         private System.Windows.Forms.ToolStripMenuItem createItemInsideToolStripMenuItem;
         private System.Windows.Forms.NotifyIcon systemTrayNotifyIcon;
+        private System.Windows.Forms.ToolStripMenuItem invertedColorThemeToolStripMenuItem;
     }
 }
 
